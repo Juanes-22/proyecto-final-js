@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
+
+        <title>YouTrain - Calisthenics</title>
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <!-- MDB -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
+        <!-- Toastify JS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="../css/style.css" />
+    </head>
+    <body>
+        <div id="main-container">
+            <!--  HEADER -->
+            <header>
+                <!-- NAVBAR -->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container">
+                        <a class="navbar-brand" href="../index.html">YouTrain</a>
+                        <!-- Toggle button -->
+                        <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-mdb-toggle="collapse"
+                            data-mdb-target="#navbarButtonsExample"
+                            aria-controls="navbarButtonsExample"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <i class="fas fa-bars"></i>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                            <div class="d-flex align-items-center ms-auto mb-2 mb-lg-0">
+                                <a class="btn btn-light px-3 me-2" href="../index.html" role="button">Inicio</a>
+                                <a class="btn btn-light px-3 me-2" href="#" role="button">Entrenar</a>
+                                <a class="btn btn-light px-3 me-2" href="#" role="button">Mi perfil</a>
+                                <a class="btn btn-link px-3 me-2" href="#" role="button">Iniciar sesión</a>
+                                <a class="btn btn-primary me-3" href="#" role="button">Registrate</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!--  APP -->
+            <div id="app">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-8">
+                            <h2>Tus rutinas</h2>
+                            <hr />
+                        </div>
+
+                        <div class="col-md-4 py-3">
+                            <a href="../index.html" class="btn btn-success btn-sm" id="btn__add-rutina">Añadir rutina</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8" id="main-content">
+                            <div class="list-group" id="rutinas"></div>
+                        </div>
+
+                        <div class="col-md-4" id="main-sidebar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--  FOOTER -->
+            <footer>
+                <div class="container w-50 pt-5">
+                    <div class="row justify-content-md-center py-5">
+                        <div class="col text-center font-weight-light">
+                            <p>© 2022 YouTrain - Calisthenics.</p>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- SORTABLE JS -->
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+        <!-- TOASTIFY JS -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <!-- MDB -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+
+        <script src="../js/perfil.js" type="module"></script>
+    </body>
+</html>

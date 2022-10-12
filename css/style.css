@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f6fcff;
+    margin: auto;
+}
+
+#app {
+    margin-top: 3em;
+}
+
+h1 {
+    font-family: "Racing Sans One", cursive;
+    text-align: center;
+    color: #332d2d;
+    margin: 20px 0;
+    font-size: 55px;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    font-family: "Racing Sans One", cursive;
+    font-size: 25px;
+}
+
+#rutina-form__nombre {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: #f6fcff;
+
+    color: #4f4f4f;
+}
+
+.rutina-item:hover {
+    box-shadow: 0px 0px 20px rgba(149, 153, 159, 0.16);
+}
+
+.rutina-item__cantidad {
+    width: 4em;
+    background: white;
+}
+
+#ejercicios__container {
+    height: 1000px;
+}
+
+.card {
+    cursor: pointer;
+
+    transition: box-shadow 0.3s;
+    border: none;
+}
+
+.card:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+.card:active {
+    transform: scale(1.02);
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #adb5bd;
+}
+
+/* CLASES PARA LOS ESTILOS EN LOS DIFERENTES ESTADOS DEL DRAG AND DROP */
+.rutina-item {
+    transition: box-shadow 0.3s;
+    background: rgb(241, 241, 241);
+}
+
+.rutina-item.seleccionado {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 20px rgba(149, 153, 159, 0.16);
+}
+
+.rutina-item.drag {
+    opacity: 0;
+}
+
+.fas {
+    cursor: grab;
+}
