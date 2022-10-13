@@ -1,5 +1,3 @@
-import Ejercicio from "./Ejercicio.js";
-
 export default class WorkoutGeneratorView {
     constructor(root, ejercicios, { onAddItem, onEditItem, onDeleteItem, onChangeOrderRutina, onEraseRutina, onSubmitRutina } = {}) {
         this.root = root;
@@ -64,6 +62,7 @@ export default class WorkoutGeneratorView {
             this.onSubmitRutina(nombre, rondas, diasChecked);
         });
 
+        // evento cambio value de slider
         const slider = this.root.querySelector("#rutina-form__rondas-slider");
         const rondasValue = this.root.querySelector("#rutina-form__rondas-value");
         slider.oninput = () => {
@@ -165,7 +164,7 @@ export default class WorkoutGeneratorView {
             });
 
             // evento cambiar cantidad
-            rutinaItem.querySelector(".rutina-item__cantidad").addEventListener("input", (e) => {
+            rutinaItem.querySelector(".rutina-item__cantidad").addEventListener("blur", (e) => {
                 const id = rutinaItem.dataset.rutinaitemId;
                 const cantidad = e.target.value;
                 this.onEditItem(id, cantidad);
@@ -247,7 +246,9 @@ export default class WorkoutGeneratorView {
         `;
     }
 
-    #createRutinaItemHTML({ id, nombre, cantidad }) {
+    #createRutinaItemHTML(item) {
+        const { id, nombre, cantidad } = item;
+
         return `
             <li class="list-group-item px-3 rounded-3 list-group-item-light mb-2 d-flex justify-content-between align-items-center rutina-item" data-rutinaItem-id="${id}">
                 <div class="d-flex align-items-center">
@@ -268,7 +269,7 @@ export default class WorkoutGeneratorView {
     #sortableRutina() {
         const rutinaList = document.querySelector("#rutina-form__list");
 
-        return Sortable.create(rutinaList, {
+        Sortable.create(rutinaList, {
             animation: 200,
             easing: "cubic-bezier(0.895, 0.03, 0.685, 0.22)",
             handle: ".fas",
@@ -282,7 +283,6 @@ export default class WorkoutGeneratorView {
                 const rutinaItems = document.querySelectorAll(".rutina-item");
                 rutinaItems.forEach((item) => {
                     const itemId = item.attributes["data-rutinaItem-id"].nodeValue;
-
                     orderedIds.push(itemId);
                 });
 

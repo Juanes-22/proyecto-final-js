@@ -1,23 +1,15 @@
-import Ejercicio from "./Ejercicio.js";
 import Rutina from "./Rutina.js";
 
 export default class WorkoutGeneratorAPI {
     static LOCAL_STORAGE_DATA_KEY = "workout-generator-rutina";
 
-    static async getEjerciciosJSON() {
-        const res = await fetch("../ejercicios.json");
-        const data = await res.json();
-
-        let ejercicios = [];
-        data.forEach((ejercicio) => {
-            const { id, nombre, dificultad, categoria, material, enfoque, img } = ejercicio;
-
-            const instance = new Ejercicio(id, nombre, dificultad, categoria, material, enfoque, img);
-
-            ejercicios.push(instance);
-        });
-
-        return ejercicios;
+    static async fetchEjercicios() {
+        try {
+            const response = await fetch("./ejercicios.json");
+            return await response.json();
+        } catch (error) {
+            console.error("fetch error");
+        }
     }
 
     static getRutinaLocalStorage() {
@@ -42,18 +34,17 @@ export default class WorkoutGeneratorAPI {
         const rutina = WorkoutGeneratorAPI.getRutinaLocalStorage();
 
         // verifica si item a guardar existe en el local storage
-        const existingItem = rutina.items.find((item) => ejercicio.id == item.id);
+        const existing = rutina.items.find((item) => ejercicio.id == item.id);
 
-        if (!existingItem) {
-            const newItem = {
+        if (existing) {
+            if (existing.cantidad < 60) {
+                existing.cantidad++;
+            }
+        } else {
+            rutina.items.push({
                 ...ejercicio,
                 cantidad: 1,
-            };
-            rutina.items.push(newItem);
-        } else {
-            if (existingItem.cantidad < 60) {
-                existingItem.cantidad += 1;
-            }
+            });
         }
 
         WorkoutGeneratorAPI.saveRutinaLocalStorage(rutina);

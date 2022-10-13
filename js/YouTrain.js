@@ -12,17 +12,13 @@ export default class YouTrain {
         const wg = new WorkoutGenerator(appRoot);
     }
 
-    static addRutina(rutinaToSave) {
-        const rutinas = YouTrain.#getAllRutinasLocalStorage();
+    static saveRutina(rutinaToSave) {
+        const rutinas = YouTrain.getAllRutinasLocalStorage();
 
         // verifica si la rutina a guardar existe en el local storage
         const existing = rutinas.find((rutina) => rutina.nombre == rutinaToSave.nombre);
 
-        console.log(rutinaToSave)
-        console.log(rutinas)
-
         if (existing) {
-            console.log(existing)
             const { nombre, rondas, dias, items } = rutinaToSave;
 
             // actualiza valores de rutina existente
@@ -35,11 +31,11 @@ export default class YouTrain {
         } else {
             rutinas.push(rutinaToSave);
         }
-        
+
         YouTrain.#saveRutinasLocalStorage(rutinas);
     }
 
-    static #getAllRutinasLocalStorage() {
+    static getAllRutinasLocalStorage() {
         const rutinas = JSON.parse(localStorage.getItem(YouTrain.LOCAL_STORAGE_DATA_KEY));
         let instances = [];
 

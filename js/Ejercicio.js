@@ -10,9 +10,9 @@ export default class Ejercicio {
     }
 
     getHTMLElement() {
-        const cardTemplate = document.createElement("template");
+        const template = document.createElement("template");
 
-        cardTemplate.innerHTML = `
+        template.innerHTML = `
             <div class="col mt-3">
                 <div class="card h-100 text-white bg-dark" data-ejercicio-id="${this.id}">
                     <img src="${this.img}" class="card-img-top" alt="Ejercicio" />
@@ -30,7 +30,7 @@ export default class Ejercicio {
             </div>
         `.trim();
 
-        const card = cardTemplate.content.firstElementChild;
+        const card = template.content.firstElementChild;
 
         const iconsList = card.querySelector(".card-stats");
         const iconListItemTemplate = document.createElement("template");

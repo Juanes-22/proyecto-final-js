@@ -9,20 +9,20 @@ export default class WorkoutGenerator {
         this.rutina = null;
         this.ejercicios = [];
 
+        WorkoutGeneratorAPI.fetchEjercicios()
+            .then((ejercicios) => {
+                const instances = [];
+                ejercicios.forEach((ejercicio) => {
+                    const { id, nombre, dificultad, categoria, material, enfoque, img } = ejercicio;
+                    const instance = new Ejercicio(id, nombre, dificultad, categoria, material, enfoque, img);
+                    instances.push(instance);
+                });
 
-        this.ejercicios.push(
-            new Ejercicio(1, "Pike Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/pikepushups.png"),
-            new Ejercicio(2, "Bicycle Crunches", 2, "Cardio", "Ninguno", "Abdomen", "./img/ejercicios/bicyclecrunches.png"),
-            new Ejercicio(3, "Jumping Jacks", 1, "Cardio", "Ninguno", "Cuerpo Completo", "./img/ejercicios/jumpingjacks.png"),
-            new Ejercicio(4, "Push-Ups", 2, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/pushups.png"),
-            new Ejercicio(5, "Diamond Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png"),
-        );
-
-        //this.ejercicios = WorkoutGeneratorAPI.getEjerciciosJSON();
-
-        this.view = new WorkoutGeneratorView(root, this.ejercicios, this.#handlers());
-        this.#refreshAjustesRutina();
-        this.#refreshRutinaList();
+                this.ejercicios = [...instances];
+                this.view = new WorkoutGeneratorView(root, this.ejercicios, this.#handlers());
+                this.#refreshAjustesRutina();
+                this.#refreshRutinaList();
+            });
     }
 
     #refreshAjustesRutina() {
@@ -61,7 +61,7 @@ export default class WorkoutGenerator {
                 WorkoutGeneratorAPI.saveRutinaLocalStorage(this.rutina);
 
                 // agrega rutina a db de rutinas del usuario
-                YouTrain.addRutina(this.rutina);
+                YouTrain.saveRutina(this.rutina);
 
                 // toast: rutina creada
                 Toastify({
