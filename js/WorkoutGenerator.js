@@ -1,6 +1,6 @@
 import YouTrain from "./YouTrain.js";
-import WorkoutGeneratorView from "./WorkoutGeneratorView.js";
 import WorkoutGeneratorAPI from "./WorkoutGeneratorAPI.js";
+import WorkoutGeneratorView from "./WorkoutGeneratorView.js";
 import Rutina from "./Rutina.js";
 import Ejercicio from "./Ejercicio.js";
 
@@ -9,18 +9,16 @@ export default class WorkoutGenerator {
         this.rutina = null;
         this.ejercicios = [];
 
+
         this.ejercicios.push(
             new Ejercicio(1, "Pike Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/pikepushups.png"),
             new Ejercicio(2, "Bicycle Crunches", 2, "Cardio", "Ninguno", "Abdomen", "./img/ejercicios/bicyclecrunches.png"),
             new Ejercicio(3, "Jumping Jacks", 1, "Cardio", "Ninguno", "Cuerpo Completo", "./img/ejercicios/jumpingjacks.png"),
             new Ejercicio(4, "Push-Ups", 2, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/pushups.png"),
             new Ejercicio(5, "Diamond Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png"),
-            new Ejercicio(6, "b Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png"),
-            new Ejercicio(7, "c Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png"),
-            new Ejercicio(8, "d Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png"),
-            new Ejercicio(9, "e Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png"),
-            new Ejercicio(10, "f Push-Ups", 3, "Fuerza", "Ninguno", "Brazos", "./img/ejercicios/diamondpushups.png")
         );
+
+        //this.ejercicios = WorkoutGeneratorAPI.getEjerciciosJSON();
 
         this.view = new WorkoutGeneratorView(root, this.ejercicios, this.#handlers());
         this.#refreshAjustesRutina();
@@ -52,24 +50,13 @@ export default class WorkoutGenerator {
                 WorkoutGeneratorAPI.editRutinaItem(itemId, cantidad);
                 this.#refreshRutinaList();
             },
-            onEditRutina: () => {},
             onDeleteItem: (itemId) => {
                 WorkoutGeneratorAPI.deleteRutinaItem(itemId);
                 this.#refreshRutinaList();
             },
             onSubmitRutina: (nombre, rondas, dias) => {
-                const rutina = new Rutina();
-                const items = [...this.rutina.items];
-
-                rutina.nombre = nombre;
-                rutina.items = [...items];
-                rutina.rondas = rondas;
-                rutina.dias = [...dias];
-                rutina.date = new Date();
-                rutina.duracion = rutina.calcularDuracion();
-                rutina.calorias = rutina.calcularCalorias();
-
-                this.rutina = { ...rutina };
+                const instance = new Rutina(nombre, rondas, dias, [...this.rutina.items]);
+                this.rutina = instance;
 
                 WorkoutGeneratorAPI.saveRutinaLocalStorage(this.rutina);
 
@@ -92,10 +79,6 @@ export default class WorkoutGenerator {
 
                 // redirecciona a pagina mi perfil
                 //window.location.href = "./pages/profile.html";
-
-                // borra rutina
-                this.rutina = new Rutina();
-                WorkoutGeneratorAPI.saveRutinaLocalStorage(this.rutina);
             },
             onChangeOrderRutina: (orderedIds) => {
                 const orderedItems = [];

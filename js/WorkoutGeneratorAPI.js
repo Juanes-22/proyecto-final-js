@@ -1,12 +1,37 @@
+import Ejercicio from "./Ejercicio.js";
 import Rutina from "./Rutina.js";
-import YouTrain from "./YouTrain.js";
 
 export default class WorkoutGeneratorAPI {
     static LOCAL_STORAGE_DATA_KEY = "workout-generator-rutina";
 
+    static async getEjerciciosJSON() {
+        const res = await fetch("../ejercicios.json");
+        const data = await res.json();
+
+        let ejercicios = [];
+        data.forEach((ejercicio) => {
+            const { id, nombre, dificultad, categoria, material, enfoque, img } = ejercicio;
+
+            const instance = new Ejercicio(id, nombre, dificultad, categoria, material, enfoque, img);
+
+            ejercicios.push(instance);
+        });
+
+        return ejercicios;
+    }
+
     static getRutinaLocalStorage() {
-        const rutina = JSON.parse(localStorage.getItem(WorkoutGeneratorAPI.LOCAL_STORAGE_DATA_KEY)) || new Rutina();
-        return rutina;
+        const rutina = JSON.parse(localStorage.getItem(WorkoutGeneratorAPI.LOCAL_STORAGE_DATA_KEY));
+        let instance = null;
+
+        if (rutina) {
+            const { nombre, rondas, dias, items } = rutina;
+            instance = new Rutina(nombre, rondas, dias, items);
+        } else {
+            instance = new Rutina();
+        }
+
+        return instance;
     }
 
     static saveRutinaLocalStorage(rutina) {
@@ -14,7 +39,7 @@ export default class WorkoutGeneratorAPI {
     }
 
     static saveRutinaItem(ejercicio) {
-        const rutina = this.getRutinaLocalStorage();
+        const rutina = WorkoutGeneratorAPI.getRutinaLocalStorage();
 
         // verifica si item a guardar existe en el local storage
         const existingItem = rutina.items.find((item) => ejercicio.id == item.id);

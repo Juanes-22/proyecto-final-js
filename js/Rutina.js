@@ -1,12 +1,12 @@
 export default class Rutina {
-    constructor(nombre, items, rondas, dias) {
+    constructor(nombre, rondas, dias, items) {
         this.nombre = nombre ? nombre : "";
-        this.items = items ? items : [];
-        this.rondas = rondas ? rondas : 1;
+        this.rondas = rondas ? Number(rondas) : 1;
         this.dias = dias ? dias : [];
-        this.duracion = 0;
-        this.calorias = 0;
-        this.date = null;
+        this.items = items ? items : [];
+        this.duracion = this.calcularDuracion();
+        this.calorias = this.calcularCalorias();
+        this.created = new Date();
     }
 
     calcularDuracion() {

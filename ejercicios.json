@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "nombre": "Pike Push-Ups",
+        "dificultad": 3,
+        "categoria": "Fuerza",
+        "material": "Ninguno",
+        "enfoque": "Brazos",
+        "img": "./img/ejercicios/pikepushups.png"
+    },
+    {
+        "id": 2,
+        "nombre": "Bicycle Crunches",
+        "dificultad": 2,
+        "categoria": "Cardio",
+        "material": "Ninguno",
+        "enfoque": "Abdomen",
+        "img": "./img/ejercicios/bicyclecrunches.png"
+    },
+    {
+        "id": 3,
+        "nombre": "Jumping Jacks",
+        "dificultad": 1,
+        "categoria": "Cardio",
+        "material": "Ninguno",
+        "enfoque": "Cuerpo Completo",
+        "img": "./img/ejercicios/jumpingjacks.png"
+    },
+    {
+        "id": 4,
+        "nombre": "Push-Ups",
+        "dificultad": 2,
+        "categoria": "Fuerza",
+        "material": "Ninguno",
+        "enfoque": "Brazos",
+        "img": "./img/ejercicios/pushups.png"
+    },
+    {
+        "id": 5,
+        "nombre": "Diamond Push-Ups",
+        "dificultad": 3,
+        "categoria": "Fuerza",
+        "material": "Ninguno",
+        "enfoque": "Brazos",
+        "img": "./img/ejercicios/diamondpushups.png"
+    }
+]

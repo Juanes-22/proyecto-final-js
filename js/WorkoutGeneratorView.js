@@ -1,11 +1,12 @@
+import Ejercicio from "./Ejercicio.js";
+
 export default class WorkoutGeneratorView {
-    constructor(root, ejercicios, { onAddItem, onEditItem, onDeleteItem, onEditRutina, onChangeOrderRutina, onEraseRutina, onSubmitRutina } = {}) {
+    constructor(root, ejercicios, { onAddItem, onEditItem, onDeleteItem, onChangeOrderRutina, onEraseRutina, onSubmitRutina } = {}) {
         this.root = root;
 
         this.onAddItem = onAddItem;
         this.onEditItem = onEditItem;
         this.onDeleteItem = onDeleteItem;
-        this.onEditRutina = onEditRutina;
         this.onChangeOrderRutina = onChangeOrderRutina;
         this.onEraseRutina = onEraseRutina;
         this.onSubmitRutina = onSubmitRutina;
@@ -54,41 +55,20 @@ export default class WorkoutGeneratorView {
             const { nombre, rondas } = Object.fromEntries(new FormData(e.target));
 
             const checked = rutinaForm.querySelectorAll(".rutina-form__day:checked");
-
             const diasChecked = [...checked].map((checkbox) => checkbox.value);
 
             diasChecked.forEach((dia, index) => {
                 diasChecked[index] = dia.replace("weekday-", "");
             });
 
-            this.onSubmitRutina(nombre, Number(rondas), diasChecked);
-
-            // const labels = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-            // const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-            // const diasPretty = diasChecked.map((dia) => days[labels.indexOf(dia)]);
+            this.onSubmitRutina(nombre, rondas, diasChecked);
         });
 
-        // evento cambio rutina - nombre rutina
-        const rutinaNombre = this.root.querySelector("#rutina-form__nombre");
-        rutinaNombre.addEventListener("blur", (e) => {
-            this.onEditRutina();
-        });
-
-        // evento cambio rutina - slider rutina
         const slider = this.root.querySelector("#rutina-form__rondas-slider");
         const rondasValue = this.root.querySelector("#rutina-form__rondas-value");
         slider.oninput = () => {
             rondasValue.innerText = slider.value;
-            this.onEditRutina();
         };
-
-        // evento cambio rutina - checkboxes rutina
-        const rutinaCheckBoxes = document.querySelectorAll(".rutina-form__day");
-        rutinaCheckBoxes.forEach((checkbox) => {
-            checkbox.addEventListener("click", () => {
-                this.onEditRutina();
-            });
-        });
 
         // evento borrar todo rutina
         const btnEraseAll = this.root.querySelector("#rutina-form__erase");
@@ -307,29 +287,6 @@ export default class WorkoutGeneratorView {
                 });
 
                 this.onChangeOrderRutina(orderedIds);
-            },
-            store: {
-                // guarda el orden de la lista
-                set: (sortable) => {
-                    const orden = sortable.toArray();
-
-                    const {
-                        options: { group },
-                    } = sortable;
-
-                    localStorage.setItem(group.name, JSON.stringify(orden));
-                },
-
-                // obtiene el orden de la lista
-                get: (sortable) => {
-                    const {
-                        options: { group },
-                    } = sortable;
-
-                    const orden = JSON.parse(localStorage.getItem(group.name)) || [];
-
-                    return orden;
-                },
             },
         });
     }

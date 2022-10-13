@@ -1,5 +1,5 @@
-import Rutina from "./Rutina.js";
 import WorkoutGenerator from "./WorkoutGenerator.js";
+import Rutina from "./Rutina.js";
 
 export default class YouTrain {
     static LOCAL_STORAGE_DATA_KEY = "youtrain-rutinas";
@@ -7,39 +7,58 @@ export default class YouTrain {
     constructor(root) {
         this.root = root;
         this.usuario = null;
-        this.rutinas = YouTrain.getAllRutinasLocalStorage();
 
         const appRoot = root.querySelector("#app");
         const wg = new WorkoutGenerator(appRoot);
     }
 
     static addRutina(rutinaToSave) {
-        const rutinas = this.getAllRutinasLocalStorage();
+        const rutinas = YouTrain.#getAllRutinasLocalStorage();
 
         // verifica si la rutina a guardar existe en el local storage
-        const existing = rutinas.find((r) => r.nombre == rutinaToSave.nombre);
+        const existing = rutinas.find((rutina) => rutina.nombre == rutinaToSave.nombre);
+
+        console.log(rutinaToSave)
+        console.log(rutinas)
 
         if (existing) {
-            const { nombre, items, rondas, dias } = rutinaToSave;
-            const newRutina = new Rutina(nombre, items, rondas, dias);
+            console.log(existing)
+            const { nombre, rondas, dias, items } = rutinaToSave;
 
+            // actualiza valores de rutina existente
             existing.nombre = nombre;
-            existing.items = [...items];
             existing.rondas = rondas;
-            existing.dias = [...dias];
-            existing.duracion = newRutina.calcularDuracion();
-            existing.calorias = newRutina.calcularCalorias();
+            existing.dias = dias;
+            existing.items = items;
+            existing.duracion = existing.calcularDuracion();
+            existing.calorias = existing.calcularCalorias();
         } else {
             rutinas.push(rutinaToSave);
         }
-        YouTrain.saveRutinasLocalStorage(rutinas);
+        
+        YouTrain.#saveRutinasLocalStorage(rutinas);
     }
 
-    static getAllRutinasLocalStorage() {
-        return JSON.parse(localStorage.getItem(YouTrain.LOCAL_STORAGE_DATA_KEY)) || [];
+    static #getAllRutinasLocalStorage() {
+        const rutinas = JSON.parse(localStorage.getItem(YouTrain.LOCAL_STORAGE_DATA_KEY));
+        let instances = [];
+
+        if (rutinas) {
+            rutinas.forEach((rutina) => {
+                const { nombre, rondas, dias, items, created } = rutina;
+                const instance = new Rutina(nombre, rondas, dias, items);
+                instance.created = created; // para conservar fecha de creación de la rutina
+
+                instances.push(instance);
+            });
+        } else {
+            instances = [];
+        }
+
+        return instances;
     }
 
-    static saveRutinasLocalStorage(rutinas) {
+    static #saveRutinasLocalStorage(rutinas) {
         localStorage.setItem(YouTrain.LOCAL_STORAGE_DATA_KEY, JSON.stringify(rutinas));
     }
 }
