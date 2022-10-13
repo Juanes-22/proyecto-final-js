@@ -55,8 +55,8 @@ export default class WorkoutGenerator {
                 this.#refreshRutinaList();
             },
             onSubmitRutina: (nombre, rondas, dias) => {
-                const instance = new Rutina(nombre, rondas, dias, [...this.rutina.items]);
-                this.rutina = instance;
+                const instance = new Rutina(nombre, rondas, dias, this.rutina.items);
+                this.rutina = {...instance};
 
                 WorkoutGeneratorAPI.saveRutinaLocalStorage(this.rutina);
 

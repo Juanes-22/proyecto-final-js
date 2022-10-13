@@ -43,5 +43,59 @@
         "material": "Ninguno",
         "enfoque": "Brazos",
         "img": "./img/ejercicios/diamondpushups.png"
+    },
+    {
+        "id": 6,
+        "nombre": "Jumping Lunges",
+        "dificultad": 2,
+        "categoria": "Cardio",
+        "material": "Ninguno",
+        "enfoque": "Piernas",
+        "img": "./img/ejercicios/jumpinglunges.png"
+    },
+    {
+        "id": 7,
+        "nombre": "Isometric Squats",
+        "dificultad": 3,
+        "categoria": "Fuerza",
+        "material": "Ninguno",
+        "enfoque": "Piernas",
+        "img": "./img/ejercicios/isometricsquats.png"
+    },
+    {
+        "id": 8,
+        "nombre": "Plank",
+        "dificultad": 3,
+        "categoria": "Fuerza",
+        "material": "Ninguno",
+        "enfoque": "Abdomen",
+        "img": "./img/ejercicios/plank.png"
+    },
+    {
+        "id": 9,
+        "nombre": "Inverted Rows",
+        "dificultad": 2,
+        "categoria": "Fuerza",
+        "material": "Barra de dominadas",
+        "enfoque": "Tren superior",
+        "img": "./img/ejercicios/invertedrows.png"
+    },
+    {
+        "id": 10,
+        "nombre": "Pull-Ups",
+        "dificultad": 5,
+        "categoria": "Fuerza",
+        "material": "Barra de dominadas",
+        "enfoque": "Tren superior",
+        "img": "./img/ejercicios/pullups.png"
+    },
+    {
+        "id": 11,
+        "nombre": "T Push-Ups",
+        "dificultad": 3,
+        "categoria": "Fuerza",
+        "material": "Ninguno",
+        "enfoque": "Tren superior",
+        "img": "./img/ejercicios/tpushups.png"
     }
 ]
