@@ -57,4 +57,13 @@ export default class YouTrain {
     static #saveRutinasLocalStorage(rutinas) {
         localStorage.setItem(YouTrain.LOCAL_STORAGE_DATA_KEY, JSON.stringify(rutinas));
     }
+
+    static deleteRutina(rutinaToDelete) {
+        const rutinas = YouTrain.getAllRutinasLocalStorage();
+
+        // obtiene todos los items que no tengan el id
+        const newRutinas = rutinas.filter((rutina) => rutina.nombre != rutinaToDelete.nombre);
+
+        YouTrain.#saveRutinasLocalStorage(newRutinas);
+    }
 }

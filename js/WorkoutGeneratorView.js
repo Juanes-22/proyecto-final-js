@@ -22,19 +22,14 @@ export default class WorkoutGeneratorView {
                     <div class="col-lg-4 p-4 mb-5 mb-lg-0" id="workoutGenerator__sidebar">${this.#getRutinaFormHTML()}</div>
 
                     <!-- Sección ejercicios disponibles -->
-                    <div class="col-lg-8 px-5" id="workoutGenerator__ejercicios">                        
+                    <div class="col-lg-8 px-5" id="workoutGenerator__ejercicios">
                         <!-- Buscador de ejercicios -->
-                        <div class="row my-4" id="ejercicios__buscador">
-                            <div class="col">
-                                <div class="input-group">
-                                    <input type="search" class="form-control rounded-pill" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                                    <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="row my-4" id="ejercicios__buscador">${this.#getBuscadorEjerciciosHTML()}</div>
             
                         <!-- Ejercicios disponibles -->
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 overflow-auto" id="ejercicios__container"></div>
+                        <div class="overflow-auto p-3" style="height:1000px">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3" id="ejercicios__container"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,6 +69,22 @@ export default class WorkoutGeneratorView {
         btnEraseAll.addEventListener("click", () => {
             if (confirm("¿Estás seguro de que quieres borrar la rutina?")) {
                 this.onEraseRutina();
+            }
+        });
+
+        // evento buscador ejercicio
+        const buscador = document.querySelector("#ejercicios__buscador");
+        buscador.addEventListener("input", (e) => {
+            const value = e.target.value.toLowerCase();
+            const ejerciciosContainer = document.querySelector("#ejercicios__container");
+
+            for (let i = 0; i < ejerciciosContainer.children.length; i++) {
+                const element = ejerciciosContainer.children[i];
+                const ejercicioName = element.querySelector(".card-title").innerText;
+
+                const isVisible = ejercicioName.toLowerCase().includes(value);
+
+                !isVisible ? element.classList.add("d-none") : element.classList.remove("d-none");
             }
         });
     }
@@ -172,6 +183,17 @@ export default class WorkoutGeneratorView {
         });
     }
 
+    #getBuscadorEjerciciosHTML() {
+        return `
+            <div class="col">
+                <div class="input-group mb-3">
+                    <input type="search" class="form-control rounded-pill" placeholder="Buscar..." aria-label="Search" aria-describedby="search-addon" />
+                    <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+        `;
+    }
+
     #getRutinaFormHTML() {
         return `
             <!-- Formulario rutina -->
@@ -255,7 +277,7 @@ export default class WorkoutGeneratorView {
                     <i class="fas fa-grip-lines me-3"></i>
                     <div>
                         <h6 class="fw-bold mb-2 rutina-item__nombre">${nombre}</h6>                    
-                        <input type="number" min="1" max="60" class="form-control rutina-item__cantidad" value="${cantidad}"/>                    
+                        <input type="number" min="1" max="60" class="form-control rutina-item__cantidad" value="${cantidad}"/>                
                     </div>
                 </div>
 

@@ -49,10 +49,6 @@ h1 {
     background: white;
 }
 
-#ejercicios__container {
-    height: 1000px;
-}
-
 .card {
     cursor: pointer;
 
